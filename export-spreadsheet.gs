@@ -64,7 +64,7 @@ function export(opts) {
 
 
     // If provided a sheetId, save it, otherwise save active sheet
-    var sheet = SpreadsheetApp.getActiveSpreadsheet();
+    var sheet = null;
     if(opts.sheetId){
         var sheets = ss.getSheets();
         for (var i=0; i<sheets.length; i++) {
@@ -72,6 +72,9 @@ function export(opts) {
             if (opts.sheetId === currentSheet.getSheetId())
                 sheet = currentSheet;
         }
+    }
+    else {
+        sheet = ss.getActiveSheet();
     }
 
     // Additional parameters
