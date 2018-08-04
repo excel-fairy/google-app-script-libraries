@@ -22,7 +22,7 @@
  *                                    fileFormat: csv, pdf, etc.(?)
  *                                }
  */
-function exportFile(opts) {
+function export(opts) {
 
     opts = !!opts ? opts : {};
 
