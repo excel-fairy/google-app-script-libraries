@@ -1,4 +1,3 @@
-
 /**
  * v1 - 20180805
  * Get the offset of a google sheets column from its name, and its name from an offset
