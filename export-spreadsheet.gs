@@ -1,5 +1,5 @@
 /**
- * v0.1 - 20180706
+ * v1 - 20180804
  * Export a sheet in a spreadsheet on user's Google Drive
  *
  * Adapted from https://stackoverflow.com/questions/47289834/export-multiple-sheets-in-a-single-pdf
