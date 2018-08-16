@@ -18,7 +18,8 @@
  *                                        r2: 0,
  *                                        c1: 0,
  *                                        c2: 0
- *                                    }
+ *                                    },
+ *                                    repeatHeader: true
  *                                    fileFormat: csv, pdf, etc.(?)
  *                                }
  */
@@ -52,11 +53,11 @@ function export(opts) {
 
     // Set range url parameters
     var rangeParameters = '';
-    if(opts.range
-        && opts.range.r1 && opts.range.r1 === parseInt(opts.range.r1, 10)
-        && opts.range.r2 && opts.range.r2 === parseInt(opts.range.r2, 10)
-        && opts.range.c1 && opts.range.c1 === parseInt(opts.range.c1, 10)
-        && opts.range.c2 && opts.range.c2 === parseInt(opts.range.c2, 10))
+    if(typeof opts.range !== 'undefined'
+        && typeof opts.range.r1 !== 'undefined' && opts.range.r1 === parseInt(opts.range.r1, 10)
+        && typeof opts.range.r2 !== 'undefined' && opts.range.r2 === parseInt(opts.range.r2, 10)
+        && typeof opts.range.c1 !== 'undefined' && opts.range.c1 === parseInt(opts.range.c1, 10)
+        && typeof opts.range.c2 !== 'undefined' && opts.range.c2 === parseInt(opts.range.c2, 10))
         rangeParameters = '&r1=' + opts.range.r1 +
             '&r2=' + opts.range.r2 +
             '&c1=' + opts.range.c1 +
@@ -77,7 +78,10 @@ function export(opts) {
         sheet = ss.getActiveSheet();
     }
 
-    // Additional parameters
+    var repeatHeader = false;
+    if(typeof opts.repeatHeader !== 'undefined')
+        repeatHeader = opts.repeatHeader;
+
     var fileFormat = 'pdf';
     if(opts.fileFormat && (opts.fileFormat === 'csv' || opts.fileFormat === 'pdf'))
         fileFormat = opts.fileFormat;
