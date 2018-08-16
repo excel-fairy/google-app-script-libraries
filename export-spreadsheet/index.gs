@@ -1,5 +1,5 @@
 /**
- * v1 - 20180804
+ * v2 - 20180816
  * Export a sheet in a spreadsheet on user's Google Drive
  *
  * Adapted from https://stackoverflow.com/questions/47289834/export-multiple-sheets-in-a-single-pdf
@@ -19,7 +19,7 @@
  *                                        c1: 0,
  *                                        c2: 0
  *                                    },
- *                                    repeatHeader: true
+ *                                    repeatHeader: true,
  *                                    fileFormat: csv, pdf, etc.(?)
  *                                }
  */
@@ -94,7 +94,7 @@ function export(opts) {
         + '&sheetnames=false&printtitle=false&pagenumbers=false'  //hide optional headers and footers
         + '&gridlines=false'  // hide gridlines
         + rangeParameters     // range
-        + '&fzr=false';       // do not repeat row headers (frozen rows) on each page
+        + '&fzr=' + repeatHeader;       // do not repeat row headers (frozen rows) on each page
 
     var options = {
         headers: {
