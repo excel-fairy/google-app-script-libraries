@@ -11,7 +11,7 @@ var BASE_URL = "https://min-api.cryptocompare.com/data/pricemulti";
  * Example of called URL: https://min-api.cryptocompare.com/data/pricemulti?fsyms=ETH,BTC&tsyms=BTC,USD,EUR,e=CCCAGG
  */
 function getCurrentPrice(inputCurrencies, outputCurrencies, exchange) {
-    Logger.log('Requesting current price of currency(ies)',
+    console.debug('Requesting current price of currency(ies)',
         {inputCurrencies: inputCurrencies, outputCurrencies: outputCurrencies, exchange: exchange});
     // noinspection ES6ConvertVarToLetConst
     var url =  BASE_URL;
@@ -25,7 +25,7 @@ function getCurrentPrice(inputCurrencies, outputCurrencies, exchange) {
     }
 
     const response = UrlFetchApp.fetch(url);
-    Logger.log('Repsonse from cryptocompare: ', response);
+    console.debug('Repsonse from cryptocompare: ', response);
     const responseData = JSON.parse(response.getContentText());
     return responseData;
 }
