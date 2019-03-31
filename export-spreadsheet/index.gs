@@ -1,5 +1,5 @@
 /**
- * v2 - 20180816
+ * v3 - 20190331
  * Export a sheet in a spreadsheet on user's Google Drive
  *
  * Adapted from https://stackoverflow.com/questions/47289834/export-multiple-sheets-in-a-single-pdf
@@ -13,6 +13,7 @@
  *                                    sheetId: 'sheetId',
  *                                    exportFolderId: 'folderId',
  *                                    exportFileName: 'file',
+ *                                    portrait: true
  *                                    range: {
  *                                        r1: 0,
  *                                        r2: 0,
@@ -50,6 +51,11 @@ function export(opts) {
             folder = DriveApp.getRootFolder();
         }
     }
+    // Orientation of the exported document
+    // true for portrait, false for landscape
+    var portrait = true;
+    if(typeof opts.portrait !== 'undefined')
+        portrait = opts.portrait;
 
     // Set range url parameters
     var rangeParameters = '';
@@ -89,7 +95,7 @@ function export(opts) {
         + '&gid=' + sheet.getSheetId()
         // following parameters are optional...
         + '&size=letter'      // paper size
-        + '&portrait=true'    // orientation, false for landscape
+        + '&portrait=' + portrait
         + '&fitw=true'        // fit to width, false for actual size
         + '&sheetnames=false&printtitle=false&pagenumbers=false'  //hide optional headers and footers
         + '&gridlines=false'  // hide gridlines
