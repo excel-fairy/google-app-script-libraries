@@ -1,5 +1,5 @@
 /**
- * v3 - 20190331
+ * v5 - 20200222
  * Export a sheet in a spreadsheet on user's Google Drive
  *
  * Adapted from https://stackoverflow.com/questions/47289834/export-multiple-sheets-in-a-single-pdf
@@ -21,10 +21,16 @@
  *                                        c2: 0
  *                                    },
  *                                    repeatHeader: true,
- *                                    fileFormat: csv, pdf, etc.(?)
+ *                                    fileFormat: csv, pdf, etc.(?),
+ *                                    margin: {
+ *                                        top: 0,
+ *                                        left: 0,
+ *                                        right: 0,
+ *                                        bottom: 0
+ *                                    },
  *                                }
  */
-function export(opts) {
+function apply(opts) {
 
     opts = !!opts ? opts : {};
 
@@ -69,6 +75,18 @@ function export(opts) {
             '&c1=' + opts.range.c1 +
             '&c2=' + opts.range.c2;
 
+    // Set margin url parameters
+    var marginParameters = '';
+    if(typeof opts.margin !== 'undefined'
+        && typeof opts.margin.top !== 'undefined' && opts.margin.top === parseInt(opts.margin.top, 10)
+        && typeof opts.margin.left !== 'undefined' && opts.margin.left === parseInt(opts.margin.left, 10)
+        && typeof opts.margin.right !== 'undefined' && opts.margin.right === parseInt(opts.margin.right, 10)
+        && typeof opts.margin.bottom !== 'undefined' && opts.margin.bottom === parseInt(opts.margin.bottom, 10))
+        marginParameters = '&top_margin=' + opts.margin.top +
+            '&left_margin=' + opts.margin.left +
+            '&right_margin=' + opts.margin.right +
+            '&bottom_margin=' + opts.margin.bottom;
+
 
     // If provided a sheetId, save it, otherwise save active sheet
     var sheet = null;
@@ -100,7 +118,8 @@ function export(opts) {
         + '&sheetnames=false&printtitle=false&pagenumbers=false'  //hide optional headers and footers
         + '&gridlines=false'  // hide gridlines
         + rangeParameters     // range
-        + '&fzr=' + repeatHeader;       // do not repeat row headers (frozen rows) on each page
+        + '&fzr=' + repeatHeader       // do not repeat row headers (frozen rows) on each page
+        + marginParameters;
 
     var options = {
         headers: {
